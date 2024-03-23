@@ -1,0 +1,4 @@
+.animate-open {
+    transition: all 0.3s ease-in-out;
+    /* Other transformation or opacity animations as desired */
+  }
