@@ -4,6 +4,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterWebComponent } from './footer-web/footer-web.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
+import routeConfig from './routes';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { RouterModule } from '@angular/router';
     NavBarComponent,
     FooterWebComponent,
     HomeComponent,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -21,9 +22,5 @@ import { RouterModule } from '@angular/router';
 export class AppComponent {
   title = 'tfg-mlops-web';
 
-  menuItems = [
-    { name: 'Home', url: '/' },
-    { name: 'About', url: '/about' },
-    { name: 'Services', url: '/services' },
-  ];
+  menuItems = routeConfig;
 }

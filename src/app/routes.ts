@@ -6,17 +6,22 @@ const routeConfig: Routes = [
     {
         path: '',
         component: HomeComponent,
-        title: 'MLOps - Home Page'
+        title: 'Home'
+    },
+    {
+        path: 'NewRequest',
+        component: HomeComponent,
+        title: 'New Request'
     },
     {
         path: 'Requests',
         component: RequestsListComponent,
-        title: 'MLOps Banking System - Requests'
+        title: 'Requests'
     },
     {
-        path: 'services',
+        path: 'About',
         component: HomeComponent,
-        title: 'Services Page'
+        title: 'About'
     }
 ];
 
