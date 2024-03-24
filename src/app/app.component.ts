@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterWebComponent } from './footer-web/footer-web.component';
-import { LandingContentComponent } from './landing-content/landing-content.component';
+import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
     RouterOutlet,
     NavBarComponent,
     FooterWebComponent,
-    LandingContentComponent,
+    HomeComponent,
     RouterModule
   ],
   templateUrl: './app.component.html',
