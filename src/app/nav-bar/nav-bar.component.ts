@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -11,8 +11,7 @@ import { RouterModule } from '@angular/router';
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="../../assets/bank-logo.svg" class="h-8" alt="MLOps banking system logo" />
-        <span class="hidden sm:inline self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MLOps Credit Prediction System</span>
-        <span class="sm:hidden self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MLOps</span>
+        <span class="sm:inline self-center sm:text-2xl font-semibold whitespace-nowrap dark:text-white">MLOps Credit Prediction System</span>
     </a>
     <button (click)="toggleMenu()" data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span class="sr-only">Open menu</span>
@@ -38,11 +37,7 @@ import { RouterModule } from '@angular/router';
 export class NavBarComponent {
   isMenuOpen = false;
 
-  menuItems = [
-    { name: 'Home', url: '/' },
-    { name: 'About', url: '/about' },
-    { name: 'Services', url: '/services' },
-  ];
+  @Input() menuItems: any;
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;

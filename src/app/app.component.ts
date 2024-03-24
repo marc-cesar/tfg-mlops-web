@@ -20,4 +20,10 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent {
   title = 'tfg-mlops-web';
+
+  menuItems = [
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about' },
+    { name: 'Services', url: '/services' },
+  ];
 }
