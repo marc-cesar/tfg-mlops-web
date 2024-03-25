@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { NewRequestComponent } from './new-request/new-request.component';
+import { AboutComponent } from './about/about.component';
 
 const routeConfig: Routes = [
     {
@@ -21,7 +22,7 @@ const routeConfig: Routes = [
     },
     {
         path: 'About',
-        component: HomeComponent,
+        component: AboutComponent,
         title: 'About'
     }
 ];

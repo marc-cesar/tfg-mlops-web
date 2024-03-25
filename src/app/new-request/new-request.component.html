@@ -4,7 +4,7 @@
     <p class="mb-8 px-6">To initiate a new credit assessment for a client, please provide the following information:</p>
   </div>
   <div class="flex justify-center">
-    <form class="w-full max-w-4xl px-10">
+    <form class="w-full max-w-4xl px-10" (submit)="sendForm(); $event.preventDefault()">
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="field0">
@@ -236,18 +236,19 @@
             <!-- <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="field19" formControlName="field19" type="text" placeholder="Enter text here"> -->
             </div>
         </div>
+
         @if(isLoading){
             <div class="flex justify-center mb-6" >
-                <div class="spinner"></div>
+                <div class="spinner border-t-transparent border-4 border-gray-700 w-8 h-8 rounded-full animate-spin"></div>
             </div>
         }
+        
         <!-- Submit button -->
         <div class="flex justify-center mb-12">
-            <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+            <button class="btn shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
             Submit Request
             </button>
         </div>
-
     </form>
   </div>
 </div>

@@ -12,4 +12,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class NewRequestComponent {
   isLoading = false;
 
+  sendForm() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }	
 }
