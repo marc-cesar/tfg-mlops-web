@@ -1,0 +1,8 @@
+select, input {
+    cursor: pointer;
+}
+
+select:hover, input:hover{
+    transform: scale(1.02);
+    transition: 0.3s;
+}
