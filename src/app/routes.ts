@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
+import { NewRequestComponent } from './new-request/new-request.component';
 
 const routeConfig: Routes = [
     {
@@ -10,7 +11,7 @@ const routeConfig: Routes = [
     },
     {
         path: 'NewRequest',
-        component: HomeComponent,
+        component: NewRequestComponent,
         title: 'New Request'
     },
     {
