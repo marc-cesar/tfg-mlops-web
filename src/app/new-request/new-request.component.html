@@ -4,13 +4,13 @@
     <p class="mb-8 px-6">To initiate a new credit assessment for a client, please provide the following information:</p>
   </div>
   <div class="flex justify-center">
-    <form class="w-full max-w-4xl px-10" (submit)="sendForm(); $event.preventDefault()">
+    <form [formGroup]="requestForm" class="w-full max-w-4xl px-10" (submit)="sendForm(); $event.preventDefault()">
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="field0">
                     Status of existing checking account
                 </label>
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" formControlName="field0" id="field0">
+                <select formControlName="field0" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" formControlName="field0" id="field0">
                     <option value="" selected>Please select</option>
                     <option value="0"> < 0 DM</option>
                     <option value="1">0 <= ... < 200 DM</option>
