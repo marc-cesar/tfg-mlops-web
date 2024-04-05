@@ -92,6 +92,7 @@ export class NewRequestComponent {
 
   callFeedback(feedback: boolean) {    
     console.log('Feedback:', feedback);
+    this.requestForm.reset();
   }
 
   convertFormGroupToJson(formGroup: FormGroup): { [key: string]: number[] } {
