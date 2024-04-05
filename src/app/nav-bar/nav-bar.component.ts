@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-2 sm:px-10 py-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="../../assets/bank-logo.svg" class="h-8" alt="MLOps banking system logo" />
-        <span class="sm:inline self-center sm:text-2xl font-semibold whitespace-nowrap text-white">MLOps Credit Prediction System</span>
+        <span class="sm:inline self-center sm:text-2xl font-semibold whitespace-nowrap text-white">Bank Credit Recomender</span>
     </a>
     <button (click)="toggleMenu()" data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg lg:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span class="sr-only">Open menu</span>

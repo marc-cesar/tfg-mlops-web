@@ -13,12 +13,12 @@ const routeConfig: Routes = [
     {
         path: 'NewRequest',
         component: NewRequestComponent,
-        title: 'New Request'
+        title: 'New Credit'
     },
     {
         path: 'Requests',
         component: RequestsListComponent,
-        title: 'Requests'
+        title: 'All Requests'
     },
     {
         path: 'About',
