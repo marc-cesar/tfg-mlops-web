@@ -53,27 +53,29 @@ export class NewRequestComponent {
     // Do the post call
     this.requestsService.askForPrediction(json)
       .then((response) => {
-        if(response['error'] == "Model not loaded") {
-         // Wait 5 seconds and try again
-          setTimeout(() => {
-            this.requestsService.askForPrediction(json)
-              .then((response) => {
-                this.isLoading = false;
-                console.log(response);
-              })
-              .catch((error) => {
-                console.error(error);
-              })
-          }, 6000); 
-        }
-
         this.isLoading = false;
-        console.log(response);
+            // Check the prediction value and show the modal with the appropriate message
+          if(response["prediction"] === "0") {
+            this.showModal('We recommend this credit.');
+          } else if(response["prediction"] === "1") {
+            this.showModal('We don’t recommend this credit.');
+          } else {
+            // Handle unexpected prediction values
+            console.error('Unexpected prediction value:', response["prediction"]);
+    }
       })
       .catch((error) => {
         console.error(error);
       })
   }
+
+  // Example showModal function implementation
+    showModal(message : string) {
+      // Your modal display logic here
+      console.log('Modal message:', message);
+      // For instance, using alert to demonstrate, but you'd replace this with your actual modal display code.
+      alert(message);
+    }
 
 
   
