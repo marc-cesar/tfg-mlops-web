@@ -28,4 +28,15 @@ export class RequestsService {
     return await data.json();
   }
 
+  async sendFeedback(requestId: string, feedback: boolean): Promise<any> {
+    const response = await fetch(`${this.apiUrl}/giveFeedback?id=${requestId}&isCorrect=${feedback == true ? '1' : '0'}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    return '';
+  }
+
+
 }

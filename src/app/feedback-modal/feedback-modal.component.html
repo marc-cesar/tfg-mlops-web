@@ -1,0 +1,8 @@
+<mat-dialog-content>
+  <h1>{{ message }}</h1>
+  <p>Do you think this prediction is correct?</p>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-between w-full gap-12">
+  <button mat-button [mat-dialog-close]="true" class="w-8 flex-grow border border-black focus:ring focus:border-black text-center text-base bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out" (click)="confirmFeedBack(requestId.toString(), true)">Yes</button>
+  <button mat-button [mat-dialog-close]="false" class="w-8 flex-grow border border-black focus:ring focus:border-black text-center text-base bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out" (click)="confirmFeedBack(requestId.toString(), false)">No</button>
+</mat-dialog-actions>

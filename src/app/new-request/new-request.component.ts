@@ -1,17 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestsService } from '../requests.service';
-
+import { FeedbackModalComponent } from '../feedback-modal/feedback-modal.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-request',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatDialogModule, FeedbackModalComponent],
   templateUrl: './new-request.component.html',
   styleUrl: './new-request.component.css'
 })
 
 export class NewRequestComponent {
+  constructor(public dialog: MatDialog){}
+
   requestsService = inject(RequestsService);
 
   requestForm = new FormGroup({
@@ -39,6 +42,7 @@ export class NewRequestComponent {
 
 
   isLoading = false;
+  requestId = 0;
 
   sendForm() {
     if (this.requestForm.invalid) {
@@ -54,15 +58,16 @@ export class NewRequestComponent {
     this.requestsService.askForPrediction(json)
       .then((response) => {
         this.isLoading = false;
+        this.requestId = response["id"];
             // Check the prediction value and show the modal with the appropriate message
           if(response["prediction"] === "0") {
-            this.showModal('We recommend this credit.');
+            this.showModal('We recommend this credit.', this.requestId);
           } else if(response["prediction"] === "1") {
-            this.showModal('We don’t recommend this credit.');
+            this.showModal('We don’t recommend this credit.', this.requestId);
           } else {
             // Handle unexpected prediction values
             console.error('Unexpected prediction value:', response["prediction"]);
-    }
+          }
       })
       .catch((error) => {
         console.error(error);
@@ -70,15 +75,25 @@ export class NewRequestComponent {
   }
 
   // Example showModal function implementation
-    showModal(message : string) {
-      // Your modal display logic here
-      console.log('Modal message:', message);
-      // For instance, using alert to demonstrate, but you'd replace this with your actual modal display code.
-      alert(message);
-    }
+  showModal(message : string, requestId : number) {
+    console.log('Modal message:', message);
 
+    const dialogRef = this.dialog.open(FeedbackModalComponent, {
+      width: '250px',
+      data: {message: message, requestId: requestId}
+    });
 
-  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.callFeedback(result);
+      }
+    });
+  }
+
+  callFeedback(feedback: boolean) {    
+    console.log('Feedback:', feedback);
+  }
+
   convertFormGroupToJson(formGroup: FormGroup): { [key: string]: number[] } {
     const result: { [key: string]: number[] } = {};
     
