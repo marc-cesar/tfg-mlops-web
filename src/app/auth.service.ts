@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
+import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,15 @@ export class AuthService {
   constructor(private http: HttpClient, private storageService : StorageService, private router : Router) { }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post<any>(this.apiUrl + '/logIn', { Username: username, Password: password }, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/logIn', { Username: username, Password: password })
       .pipe(
         map(response => {
-          if (response && response != '') {
-            this.storageService.currentUser = { username: username, token: response.token };
-            //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: response.token }));
+          if (response && response != '' && response.Token != '' && response.username != '') {
+            this.storageService.currentUser = { 
+              username: username, 
+              token: response.Token,
+              isAdmin: response.IsAdmin
+            };
             return true;
           } else {
             return false;
@@ -36,11 +40,15 @@ export class AuthService {
   }
 
   signup(username: string, password: string): Observable<boolean> {
-    return this.http.post<any>(this.apiUrl + '/signIn', { Username: username, Password: password }, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/signIn', { Username: username, Password: password })
       .pipe(
         map(response => {
-          if (response && response != '') {
-            this.storageService.currentUser = { username: username, token: response.token };
+          if (response && response != '' && response.Token != '' && response.username != '') {
+            this.storageService.currentUser = { 
+              username: username, 
+              token: response.Token,
+              isAdmin: response.IsAdmin
+            };
             return true;
           } else {
             return false;

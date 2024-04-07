@@ -22,7 +22,7 @@ export class StorageService {
     return this.currentUserSubject.asObservable();
   }
 
-  public set currentUser(user: any) {
+  public set currentUser(user: User) {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
