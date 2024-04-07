@@ -1,5 +1,5 @@
 // In src/environments/environment.ts
 export const environment = {
     production: false,
-    baseUrl: 'http://localhost:8080', // Development base URL
+    baseUrl: 'https://tfg-mlops-service-01cc2090b7ec.herokuapp.com', // Development base URL
   };
