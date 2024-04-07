@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Request } from './request';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
 
-  private apiUrl = 'https://tfg-mlops-service-01cc2090b7ec.herokuapp.com/api'
+  private apiUrl = environment.baseUrl + '/api'
 
   constructor(private http: HttpClient) { }
   

@@ -3,6 +3,8 @@ import { HomeComponent } from './home/home.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { NewRequestComponent } from './new-request/new-request.component';
 import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routeConfig: Routes = [
     {
@@ -24,6 +26,16 @@ const routeConfig: Routes = [
         path: 'About',
         component: AboutComponent,
         title: 'About'
+    },
+    {
+        path: 'Login',
+        component: LoginComponent,
+        title: 'Login'
+    },
+    {
+        path: 'Signup',
+        component: SignupComponent,
+        title: 'Signup'
     }
 ];
 
