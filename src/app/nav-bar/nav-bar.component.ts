@@ -1,6 +1,10 @@
 import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { StorageService } from '../storage.service';
+import { Subscription } from 'rxjs';	
+import { AuthService } from '../auth.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,9 +27,14 @@ import { CommonModule } from '@angular/common';
     <div [hidden]="!isMenuOpen" [class.animate-open]="isMenuOpen" class="w-full lg:block lg:w-auto" id="navbar-default">
       <ul class="font-medium flex flex-col p-4 lg:p-0 mt-4 border rounded-lg lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0  bg-gray-800 lg:bg-gray-900 border-gray-700">
         <!-- @for (item of menuItems; track $index) { -->
-          <li *ngFor="let item of filteredMenuItems; let i = index">
-            <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
-          </li>
+        <li *ngFor="let item of filteredMenuItems; let i = index">
+          <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
+        </li>
+        <li *ngIf="isLoggedIn">
+        <a (click)="logout()" class="py-2 px-3 bg-transparent text-white hover:cursor-pointer lg:bg-transparent lg:p-0 lg:text-white">
+          {{ (this.storageService.currentUser | async)?.username }} - Logout
+        </a>
+        </li>
           <!-- If the user is logged in, show the page a li logout button which calls a logout function -->
         <!-- } -->
       </ul>
@@ -38,6 +47,9 @@ import { CommonModule } from '@angular/common';
 })
 export class NavBarComponent {
   isMenuOpen = false;
+  isLoggedIn : boolean = false;
+
+  private subscription: Subscription = new Subscription();
 
   notAuthenticatedItemName = ['Home', 'Login', 'Signup']
   authenticatedItemName = ['Home', 'New Credit', 'All Requests', 'About']
@@ -45,31 +57,34 @@ export class NavBarComponent {
   @Input() menuItems: any[] = [];
   filteredMenuItems: any[] = this.menuItems;
 
-  onInit() {
-    this.filterMenuItems();
+  constructor(public storageService : StorageService, private authService : AuthService){}
+
+  ngOnInit() {
+    this.subscription.add(this.storageService.currentUser.subscribe((user : User | null) => {
+      this.isLoggedIn = !!user;
+      this.filterMenuItems();
+    }));
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-        // Check if menuItems input has changed
-        if (changes) {
-          this.filterMenuItems();
-        }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  logout() {
+   this.authService.logout();
+   this.isLoggedIn = false;
+   this.filterMenuItems();
   }
 
   filterMenuItems() {
     const isLoggedIn = !!localStorage.getItem('currentUser');
     this.filteredMenuItems = this.menuItems.filter(item =>
       isLoggedIn ? this.authenticatedItemName.includes(item.title) : this.notAuthenticatedItemName.includes(item.title)
-    );/*
-    if (isLoggedIn) {
-      this.menuItems = this.menuItems.filter((item: any) => this.authenticatedItemName.includes(item.title));
-    } else {
-      this.menuItems = this.menuItems.filter((item: any) => this.notAuthenticatedItemName.includes(item.title));
-    }*/
-    //this.menuItems = this.menuItems.filter((item: any) => item.title !== 'Login' && item.title !== 'Signup');
+    );
   }
 }

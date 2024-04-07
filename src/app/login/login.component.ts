@@ -28,9 +28,6 @@ export class LoginComponent {
           console.log("Login successful");
           // Navigate to the home page
           this.router.navigate(['']);
-
-
-          
         } else {
           alert("Login failed");
         }

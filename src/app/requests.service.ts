@@ -14,7 +14,7 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
   
   async getAllRequests(): Promise<Request[]> {
-    const data = await fetch(this.apiUrl + "/getAllRequests")
+    const data = await fetch(this.apiUrl + "/requests/all")
     return await data.json() ?? [];
   }
 

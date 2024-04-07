@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   model: any = {};
 
-  constructor(private authService: AuthService, private router : Router) {}
+  constructor(private authService: AuthService, private router : Router, private storageService : StorageService) {}
 
   onSubmit() {
     if (this.model.password !== this.model.confirmPassword) {
