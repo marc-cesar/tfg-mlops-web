@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { FooterWebComponent } from './footer-web/footer-web.component';
-import { HomeComponent } from './home/home.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FooterWebComponent } from './components/footer-web/footer-web.component';
+import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
 import routeConfig from './routes';
 
@@ -11,10 +11,10 @@ import routeConfig from './routes';
   standalone: true,
   imports: [
     RouterOutlet,
-    NavBarComponent,
     FooterWebComponent,
     HomeComponent,
     RouterModule,
+    NavBarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

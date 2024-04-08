@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
-import { User } from './models/user.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'

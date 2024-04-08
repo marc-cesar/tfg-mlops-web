@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RequestsService } from '../requests.service';
+import { RequestsService } from '../../services/requests.service';
 import { FeedbackModalComponent } from '../feedback-modal/feedback-modal.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 

@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Request } from '../models/request.model';
+import { Request } from '../../models/request.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

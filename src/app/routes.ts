@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { RequestsListComponent } from './requests-list/requests-list.component';
-import { NewRequestComponent } from './new-request/new-request.component';
-import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './components/home/home.component';
+import { RequestsListComponent } from './components/requests-list/requests-list.component';
+import { NewRequestComponent } from './components/new-request/new-request.component';
+import { AboutComponent } from './components/about/about.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 // Factory function to create a canActivate function with isAdmin check
 function createCheckTokenAccess(isAdminRequired: boolean = false) {

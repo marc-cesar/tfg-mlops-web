@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { StorageService } from '../storage.service';
+import { StorageService } from '../../services/storage.service';
 import { Subscription } from 'rxjs';	
-import { AuthService } from '../auth.service';
-import { User } from '../models/user.model';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-nav-bar',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { RouterModule } from '@angular/router';	
-import routeConfig from '../app.routes';
+import routeConfig from '../../app.routes';
 import { FormsModule } from '@angular/forms';	
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
