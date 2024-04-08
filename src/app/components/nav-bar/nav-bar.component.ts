@@ -31,7 +31,7 @@ import { User } from '../../models/user.model';
           <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
         </li>
         <li *ngIf="isLoggedIn">
-          <a (click)="logout()" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white">
+          <a (click)="logout()" class="cursor-pointer block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white">
             {{ (this.storageService.currentUser | async)?.username }} - Logout
           </a>
         </li>
@@ -46,11 +46,13 @@ import { User } from '../../models/user.model';
 export class NavBarComponent {
   isMenuOpen = false;
   isLoggedIn : boolean = false;
+  currentUser: User | null = null;
 
   private subscription: Subscription = new Subscription();
 
-  notAuthenticatedItemName = ['Home', 'Login', 'Signup']
+  notAuthenticatedItemName = ['Home', 'Login', 'Signup', 'About']
   authenticatedItemName = ['Home', 'New Credit', 'All Requests', 'About']
+  adminItemName = ['Home', 'New Credit', 'All Requests', 'Logs', 'About']
 
   @Input() menuItems: any[] = [];
   filteredMenuItems: any[] = this.menuItems;
@@ -59,6 +61,7 @@ export class NavBarComponent {
 
   ngOnInit() {
     this.subscription.add(this.storageService.currentUser.subscribe((user : User | null) => {
+      this.currentUser = user;
       this.isLoggedIn = !!user;
       this.filterMenuItems();
     }));
@@ -75,14 +78,17 @@ export class NavBarComponent {
 
   logout() {
    this.authService.logout();
+   this.currentUser = null;
    this.isLoggedIn = false;
    this.filterMenuItems();
   }
 
   filterMenuItems() {
-    const isLoggedIn = !!localStorage.getItem('currentUser');
+    console.log(this.currentUser);
     this.filteredMenuItems = this.menuItems.filter(item =>
-      isLoggedIn ? this.authenticatedItemName.includes(item.title) : this.notAuthenticatedItemName.includes(item.title)
+      this.currentUser != null ? (this.currentUser.isAdmin ? this.adminItemName.includes(item.title) 
+                              : this.authenticatedItemName.includes(item.title)) 
+          : (this.notAuthenticatedItemName.includes(item.title))
     );
   }
 }
