@@ -1,11 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Request } from '../models/request.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-requests-table',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './requests-table.component.html',
   styleUrl: './requests-table.component.css'
 })
@@ -20,9 +21,5 @@ export class RequestsTableComponent {
 
   ngOnInit() {
     this.processRequests();
-    // this.http.get<Request[]>('http://localhost:8080/requests/all')
-    // .subscribe((data) => {
-    //   this.requests = data;
-    // });
   }
 }
