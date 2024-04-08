@@ -24,7 +24,7 @@ export class RequestsService {
   }
 
   async askForPrediction(object: any): Promise<any> {
-    const data = await fetch(this.apiUrl + "/predict", {
+    const data = await fetch(this.apiUrl + "/api/predict", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export class RequestsService {
   }
 
   async sendFeedback(requestId: string, feedback: boolean): Promise<any> {
-    const response = await fetch(`${this.apiUrl}/giveFeedback?id=${requestId}&isCorrect=${feedback == true ? '1' : '0'}`, {
+    const response = await fetch(`${this.apiUrl}/api/giveFeedback?id=${requestId}&isCorrect=${feedback == true ? '1' : '0'}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
