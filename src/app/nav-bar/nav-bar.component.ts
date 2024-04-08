@@ -31,7 +31,7 @@ import { User } from '../models/user.model';
           <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
         </li>
         <li *ngIf="isLoggedIn">
-          <a (click)="logout()" class="py-2 px-3 bg-transparent text-white hover:cursor-pointer lg:bg-transparent lg:p-0 lg:text-white">
+          <a (click)="logout()" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white">
             {{ (this.storageService.currentUser | async)?.username }} - Logout
           </a>
         </li>

@@ -28,33 +28,31 @@
             </tr>
         </thead>
         <tbody>
-            @for(request of requests; track $index){
-                <tr class="border-b">
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-medium text-gray-900">{{ request.id }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field0 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field1 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field2 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field3 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field4 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field5 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field6 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field7 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field8 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field9 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field10 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field11 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field12 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field13 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field14 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field15 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field16 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field17 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field18 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field19 }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.prediction }}</td>
-                    <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.feedback != null ? request.feedback : 'NULL' }}</td>
-                </tr>  
-            }               
+            <tr class="border-b" *ngFor="let request of requests; let i = index">
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-medium text-gray-900">{{ request.id }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field0 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field1 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field2 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field3 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field4 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field5 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field6 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field7 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field8 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field9 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field10 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field11 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field12 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field13 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field14 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field15 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field16 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field17 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field18 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.field19 }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.prediction }}</td>
+                <td class="px-1 py-4 whitespace-nowrap text-center text-xs font-normal text-gray-900">{{ request.feedback != null ? request.feedback : 'NULL' }}</td>
+            </tr>             
         </tbody>
     </table>
 </div>
