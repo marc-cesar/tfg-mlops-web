@@ -43,7 +43,7 @@ const routeConfig: Routes = [
     {
         path: 'Requests',
         component: RequestsListComponent,
-        title: 'All Requests',
+        title: 'All Predictions',
         canActivate: [createCheckTokenAccess(false)]
     },
     {

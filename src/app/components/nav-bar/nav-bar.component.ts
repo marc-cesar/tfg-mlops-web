@@ -51,8 +51,8 @@ export class NavBarComponent {
   private subscription: Subscription = new Subscription();
 
   notAuthenticatedItemName = ['Home', 'Login', 'Signup', 'About']
-  authenticatedItemName = ['Home', 'New Credit', 'All Requests', 'About']
-  adminItemName = ['Home', 'New Credit', 'All Requests', 'Logs', 'About']
+  authenticatedItemName = ['Home', 'New Credit', 'All Predictions', 'About']
+  adminItemName = ['Home', 'New Credit', 'All Predictions', 'Logs', 'About']
 
   @Input() menuItems: any[] = [];
   filteredMenuItems: any[] = this.menuItems;
