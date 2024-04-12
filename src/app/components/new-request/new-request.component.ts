@@ -1,21 +1,36 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestsService } from '../../services/requests.service';
 import { FeedbackModalComponent } from '../feedback-modal/feedback-modal.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Request } from '../../models/request.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-new-request',
   standalone: true,
-  imports: [ReactiveFormsModule, MatDialogModule, FeedbackModalComponent],
+  imports: [
+    ReactiveFormsModule, 
+    MatDialogModule, 
+    FeedbackModalComponent,
+    HttpClientModule,
+    CommonModule
+  ],
   templateUrl: './new-request.component.html',
   styleUrl: './new-request.component.css'
 })
 
-export class NewRequestComponent {
-  constructor(public dialog: MatDialog){}
+export class NewRequestComponent implements OnInit {
+  constructor(public dialog: MatDialog, private route: ActivatedRoute){}
 
   requestsService = inject(RequestsService);
+
+  pageTitle: string = 'Create New Request';  // Default title => CHANGE
+  predictionString: string = "We recommend this credit."
+  feedbackString: string = "No feedback provided."
 
   requestForm = new FormGroup({
     field0: new FormControl('', Validators.required),
@@ -40,9 +55,40 @@ export class NewRequestComponent {
     field19: new FormControl('', Validators.required),
   });
 
-
-  isLoading = false;
   requestId = 0;
+  isLoading = false;
+  requestIdParam = "0";
+  request: Request | null = null;
+  showElements: boolean = true;
+
+  ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {
+      // Check if the requestId parameter exists
+      this.requestIdParam = params['requestId'];
+      if (this.requestIdParam) {
+        this.requestsService.getRequestById(this.requestIdParam).subscribe(
+          (data : Request) => {
+            this.request = data;
+            this.updateForm(data)
+            this.pageTitle = 'Recommendation ' + this.requestIdParam;
+            this.showElements = false;
+            this.predictionString = this.request?.prediction === "0" ? "We recommended this credit." : "We didn’t recommend this credit.";
+            this.feedbackString = this.request?.feedback === this.request?.prediction ? "The client agreed with our prediction" : "The client didn't agree with our prediction";
+          },
+          error => { 
+            console.error('Error fetching request:', error);
+          }
+        )
+      } else {
+        this.resetForm();
+        this.requestForm.enable();
+        this.pageTitle = 'New Request';
+        this.showElements = true
+      }
+    });
+  }
+
 
   sendForm() {
     if (this.requestForm.invalid) {
@@ -74,6 +120,23 @@ export class NewRequestComponent {
       })
   }
 
+  private updateForm(data: Request): void {
+    Object.keys(data).forEach(key => {
+      const control = this.requestForm.controls[key as keyof typeof this.requestForm.controls];
+      if (control) {
+        control.setValue(data[key as keyof Request]);
+        control.disable();
+      }
+    });
+  }
+
+  private resetForm(): void {
+    Object.keys(this.requestForm.controls).forEach(field => {
+      const control = this.requestForm.get(field);
+      control?.setValue('');  // Set each control to an empty string
+    });
+  }
+
   // Example showModal function implementation
   showModal(message : string, requestId : number) {
     console.log('Modal message:', message);
@@ -92,7 +155,7 @@ export class NewRequestComponent {
 
   callFeedback(feedback: boolean) {    
     console.log('Feedback:', feedback);
-    this.requestForm.reset();
+    this.resetForm();
   }
 
   convertFormGroupToJson(formGroup: FormGroup): { [key: string]: number[] } {

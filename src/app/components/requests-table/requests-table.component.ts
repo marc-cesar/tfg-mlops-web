@@ -2,11 +2,12 @@ import { Component, inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Request } from '../../models/request.model';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-requests-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './requests-table.component.html',
   styleUrl: './requests-table.component.css'
 })

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Request } from '../request';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,17 @@ export class RequestsService {
       },
     });
     return '';
+  }
+
+  getRequestById(id: string): Observable<Request> {
+    return this.http.get(`${this.apiUrl}/requests/find/${id}`).pipe(
+      map((response: any) => response as Request),
+      catchError(error => {
+        // Handle errors appropriately
+        console.error('Error fetching request:', error);
+        return throwError(() => new Error('Error fetching request'));
+      })
+    );
   }
 
 
