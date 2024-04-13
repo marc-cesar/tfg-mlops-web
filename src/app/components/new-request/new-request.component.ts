@@ -73,7 +73,7 @@ export class NewRequestComponent implements OnInit {
             this.updateForm(data)
             this.pageTitle = 'Recommendation ' + this.requestIdParam;
             this.showElements = false;
-            this.predictionString = this.request?.prediction === "0" ? "We recommended this credit." : "We didn’t recommend this credit.";
+            this.predictionString = this.request?.prediction === "0" ? "We recommended this credit." : "We didn't recommend this credit.";
             this.feedbackString = this.request?.feedback === this.request?.prediction ? "The client agreed with our prediction" : "The client didn't agree with our prediction";
           },
           error => { 
@@ -83,7 +83,7 @@ export class NewRequestComponent implements OnInit {
       } else {
         this.resetForm();
         this.requestForm.enable();
-        this.pageTitle = 'New Request';
+        this.pageTitle = 'New prediction request';
         this.showElements = true
       }
     });
@@ -101,7 +101,8 @@ export class NewRequestComponent implements OnInit {
     console.log(json);
     this.isLoading = true;
     // Do the post call
-    this.requestsService.askForPrediction(json)
+    const user = JSON.parse(localStorage.getItem('currentUser') as string)
+    this.requestsService.askForPrediction(json, user.token as string)
       .then((response) => {
         this.isLoading = false;
         this.requestId = response["id"];

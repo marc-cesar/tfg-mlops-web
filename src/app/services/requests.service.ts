@@ -24,8 +24,8 @@ export class RequestsService {
     return await data.json() ?? [];
   }
 
-  async askForPrediction(object: any): Promise<any> {
-    const data = await fetch(this.apiUrl + "/api/predict", {
+  async askForPrediction(object: any, token : string): Promise<any> {
+    const data = await fetch(this.apiUrl + "/api/predict?token=" + token, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

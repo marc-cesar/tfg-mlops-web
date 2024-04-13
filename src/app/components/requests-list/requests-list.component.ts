@@ -17,6 +17,7 @@ export class RequestsListComponent {
   requests = new Promise<Request[]>(() => {});
   constructor(){
     const user = JSON.parse(localStorage.getItem('currentUser') as string)
-    this.requests = user.isAdmin ? this.requestsService.getAllRequests() : this.requestsService.getRequestsByToken(user.token);
+    //this.requests = user.isAdmin ? this.requestsService.getAllRequests() : this.requestsService.getRequestsByToken(user.token);
+    this.requests = this.requestsService.getRequestsByToken(user.token);
   }
 }
