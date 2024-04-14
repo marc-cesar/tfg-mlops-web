@@ -1,7 +1,32 @@
 <div>
-    <h2 class="text-xl font-bold mb-4">Grant Admin Access</h2>
-    <form>
-      <input type="email" placeholder="Enter user email" class="input input-bordered w-full max-w-xs" />
-      <button type="submit" class="btn btn-primary mt-2">Grant Access</button>
-    </form>
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">Grant Admin Access</h2>
+  <form class="space-y-1">
+    <div class="flex items-center space-x-4 w-full">
+      <input type="text" id="usernameInput" placeholder="Enter username"
+        class="flex-grow appearance-none block bg-gray-200 text-gray-700 border
+        border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
+        focus:border-gray-500" #usernameInput />
+      <button type="button"
+        class="flex-grow btn shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline
+        focus:outline-none text-white font-bold py-2 px-4 rounded" (click)="addAdmin(usernameInput.value)">
+        Grant Access
+      </button>
+    </div>
+  </form>
+  @if(isLoading){
+    <div class="flex justify-center mt-5 mb-6" >
+        <div class="spinner border-t-transparent border-4 border-gray-700 w-8 h-8 rounded-full animate-spin"></div>
+    </div>
+  }
+  <div>
+    <h2 class="text-lg font-bold text-gray-900 mb-4 mt-10">Current Administrators</h2>
+    <ul class="space-y-1">
+      <li *ngFor="let user of adminUsers; let i = index" class="flex justify-between items-center bg-gray-100 p-3 rounded">
+        <span class="text-gray-700 text-lg">{{ user.username }}</span>
+        <button type="button"
+            class="bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-white font-bold py-1 px-4 rounded"
+            (click)="removeAdmin(user.username)">Remove</button>
+      </li>
+    </ul>
   </div>
+</div>

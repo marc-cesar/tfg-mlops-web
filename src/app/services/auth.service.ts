@@ -21,7 +21,8 @@ export class AuthService {
       .pipe(
         map(response => {
           if (response && response != '' && response.Token != '' && response.username != '') {
-            this.storageService.currentUser = { 
+            this.storageService.currentUser = {
+              id: "",
               username: username, 
               token: response.Token,
               isAdmin: response.IsAdmin
@@ -44,7 +45,8 @@ export class AuthService {
       .pipe(
         map(response => {
           if (response && response != '' && response.Token != '' && response.username != '') {
-            this.storageService.currentUser = { 
+            this.storageService.currentUser = {
+              id: "",
               username: username, 
               token: response.Token,
               isAdmin: response.IsAdmin
