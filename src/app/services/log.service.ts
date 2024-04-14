@@ -13,7 +13,7 @@ export class LogService {
 
   constructor(private http: HttpClient) { }
 
-  getAllLogs(): Observable<Log[]> {
-    return this.http.get<Log[]>(this.apiUrl + "/all");
+  getAllLogs(token : string): Observable<Log[]> {
+    return this.http.get<Log[]>(this.apiUrl + "/all?token=" + token);
   }
 }

@@ -16,7 +16,8 @@ export class LogComponent {
   constructor(private logService : LogService){ }
 
   ngOnInit() {
-    this.logService.getAllLogs().subscribe({
+    const user = JSON.parse(localStorage.getItem('currentUser') as string)
+    this.logService.getAllLogs(user.token).subscribe({
       next: (data : Log[]) => {
         this.logs = data;
       },

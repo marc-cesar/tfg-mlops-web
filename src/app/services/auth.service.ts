@@ -56,4 +56,13 @@ export class AuthService {
         })
       );
   }
+
+  isAdmin(): boolean {
+    const user = this.storageService.currentUserValue;
+    return user?.isAdmin ?? false;
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.storageService.currentUserValue;
+  }
 }

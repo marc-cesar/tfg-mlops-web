@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Request } from '../../models/request.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-new-request',
@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class NewRequestComponent implements OnInit {
-  constructor(public dialog: MatDialog, private route: ActivatedRoute){}
+  constructor(private viewportScroller: ViewportScroller, public dialog: MatDialog, private route: ActivatedRoute){}
 
   requestsService = inject(RequestsService);
 
@@ -62,7 +62,7 @@ export class NewRequestComponent implements OnInit {
   showElements: boolean = true;
 
   ngOnInit(): void {
-
+    this.viewportScroller.scrollToPosition([0, 0]);
     this.route.queryParams.subscribe(params => {
       // Check if the requestId parameter exists
       this.requestIdParam = params['requestId'];

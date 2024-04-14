@@ -6,6 +6,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LogComponent } from './components/log/log.component';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
 
 // Factory function to create a canActivate function with isAdmin check
 function createCheckTokenAccess(isAdminRequired: boolean = false) {
@@ -55,6 +56,11 @@ const routeConfig: Routes = [
         path: 'Signup',
         component: SignupComponent,
         title: 'Signup'
+    },
+    {
+        path: 'Admin',
+        component: AdminPageComponent,
+        title: 'Admin',
     },
     {
         path: 'Logs',

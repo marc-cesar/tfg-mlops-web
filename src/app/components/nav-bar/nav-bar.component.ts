@@ -28,10 +28,10 @@ import { User } from '../../models/user.model';
       <ul class="font-medium flex flex-col p-4 lg:p-0 mt-4 border rounded-lg lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0  bg-gray-800 lg:bg-gray-900 border-gray-700">
         <!-- @for (item of menuItems; track $index) { -->
         <li *ngFor="let item of filteredMenuItems; let i = index">
-          <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
+          <a [routerLink]="[item.path]" class="block py-2 px-3 bg-transparent lg:text-sm xl:text-base bg-blue-700 rounded lg:bg-transparent lg:p-0 text-white lg:text-white" aria-current="page">{{ item.title }}</a>
         </li>
         <li *ngIf="isLoggedIn">
-          <a (click)="logout()" class="cursor-pointer block py-2 px-3 bg-transparent  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white">
+          <a (click)="logout()" class="cursor-pointer block py-2 px-3 bg-transparent lg:text-sm xl:text-base  bg-blue-700 rounded lg:bg-transparent  lg:p-0 text-white lg:text-white">
             {{ (this.storageService.currentUser | async)?.username }} - Logout
           </a>
         </li>
@@ -52,7 +52,7 @@ export class NavBarComponent {
 
   notAuthenticatedItemName = ['Home', 'Login', 'Signup', 'About']
   authenticatedItemName = ['Home', 'New Credit', 'All Predictions', 'About']
-  adminItemName = ['Home', 'New Credit', 'All Predictions', 'Logs', 'About']
+  adminItemName = ['Home', 'New Credit', 'All Predictions', 'Logs', 'Admin', 'About']
 
   @Input() menuItems: any[] = [];
   filteredMenuItems: any[] = this.menuItems;
