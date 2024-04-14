@@ -28,4 +28,12 @@ export class AdminService {
   removeAdmin(username : string, token : string): Promise<any> {
     return this.http.post(`${this.apiUrl}/admin/unsetUserAdmin?token=${token}&username=${username}`,'').toPromise();
   }
+
+  getRetrainmentParameters(token : string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/admin/getRetrainingConfiguration?token=${token}`);
+  }
+
+  setRetrainmentParameters(token : string, minimumRequests : string, successPercentage : string): Promise<any> {
+    return this.http.post(`${this.apiUrl}/admin/setRetrainingConfiguration?token=${token}&minimumRequests=${minimumRequests}&successPercentage=${successPercentage}`,'').toPromise();
+  }
 }
