@@ -11,18 +11,21 @@ import { AdminService } from '../../../services/admin.service';
 export class ForceRetrainComponent {
   message = '';
   isError = false;
+  isLoading = false;
 
   constructor(private adminService: AdminService) {}
 
   onRetrainNow(){
-    console.log('Retrain now');
+    this.isLoading = true;
     const user = JSON.parse(localStorage.getItem('currentUser') as string)
     this.adminService.forceRetrainment(user.token as string)
       .then((response) => {
+        this.isLoading = false;
         this.message = response.message;
         this.isError = false;
       })
       .catch((error) => {
+        this.isLoading = false;
         this.message = (error as Error).message;
         this.isError = true;
       });

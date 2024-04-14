@@ -13,17 +13,5 @@ export class AdminService {
 
   forceRetrainment(token : string): Promise<any> {
     return this.http.post(`${this.apiUrl}/admin/forceRetraining?token=${token}`, {}).toPromise();
-
-    /*const response = await fetch(this.apiUrl + "/api/forceRetrainment?token=" + token, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await response.json();
-    if (!response.ok){
-      throw new Error(data.message || 'An error occurred while retraining the model');
-    }
-    return data;*/
   }
 }
