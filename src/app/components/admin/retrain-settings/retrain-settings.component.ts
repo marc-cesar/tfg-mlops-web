@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-retrain-settings',
   standalone: true,
-  imports: [],
+  imports: [
+    FontAwesomeModule
+  ],
   templateUrl: './retrain-settings.component.html',
   styleUrl: './retrain-settings.component.css'
 })
@@ -12,6 +16,7 @@ export class RetrainSettingsComponent {
   isLoading = false;
   isError = false;
   message = '';
+  faInfo = faInfoCircle;
   constructor(private adminService : AdminService) {}
 
   ngOnInit() {
@@ -59,5 +64,21 @@ export class RetrainSettingsComponent {
         this.message = (error as Error).message;
         this.isError = true;
       });
+  }
+
+  validateNumberInput(event: any){
+    const input = event.target;
+    let value = input.value;
+    
+    // Replace non-numeric characters except decimal point, minus sign, and 'e' (exponential)
+    value = value.replace(/[^0-9e.-]/gi, '');
+    
+    // Remove extra characters that shouldn't be at the start or in multiple occurrences
+    value = value.replace(/^-|e|-/gi, function (match : any, offset : any) {
+      // Allow '-' or 'e' only at the start, and '-' can appear after 'e'
+      return (match === '-' && offset === 0) || (match === 'e' && offset > 0 && value[offset - 1] !== 'e') ? match : '';
+    });
+    
+    input.value = value;
   }
 }

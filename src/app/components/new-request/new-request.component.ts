@@ -177,5 +177,21 @@ export class NewRequestComponent implements OnInit {
   
     return result;
   }
+
+  validateNumberInput(event: any){
+    const input = event.target;
+    let value = input.value;
+    
+    // Replace non-numeric characters except decimal point, minus sign, and 'e' (exponential)
+    value = value.replace(/[^0-9e.-]/gi, '');
+    
+    // Remove extra characters that shouldn't be at the start or in multiple occurrences
+    value = value.replace(/^-|e|-/gi, function (match : any, offset : any) {
+      // Allow '-' or 'e' only at the start, and '-' can appear after 'e'
+      return (match === '-' && offset === 0) || (match === 'e' && offset > 0 && value[offset - 1] !== 'e') ? match : '';
+    });
+    
+    input.value = value;
+  }
   
 }

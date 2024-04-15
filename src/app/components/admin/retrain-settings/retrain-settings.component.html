@@ -1,5 +1,14 @@
 <div>
-  <h2 class="text-2xl font-bold text-gray-900 mb-6">Retraining Parameters</h2>
+  <h2 class="text-2xl font-bold text-gray-900 mb-6 flex gap-5">
+    Retraining Parameters 
+    <div class="group relative flex items-center">
+      <fa-icon [icon]="faInfo" class="cursor-pointer"></fa-icon>
+      <span class="tooltip-text absolute invisible bg-black text-white text-sm rounded p-2 bottom-full mb-2 left-1/2 transform -translate-x-1/2 whitespace-normal w-max max-w-80 group-hover:visible z-10">
+        When the minimum number of requests is reached, the system will retrain the model if the percentage of correct requests is lower than the minimum percentage needed.
+      </span>
+    </div>
+     
+  </h2>
   <form class="space-y-4">
       <div class="flex items-center space-x-4">
           <label class="block text-sm font-semibold text-gray-700">
@@ -7,7 +16,7 @@
           </label>
           <input type="number" id="MinimumRequestsNumber" placeholder="Enter number" class="flex-grow appearance-none w-2/3 bg-gray-200 text-gray-700 border
           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
-          focus:border-gray-500" />
+          focus:border-gray-500" min="1" (input)="validateNumberInput($event)"/>
       </div>
       <div class="flex items-center space-x-4 mb-5">
           <label class="block text-sm font-semibold text-gray-700">
@@ -15,7 +24,7 @@
           </label>
           <input type="number" id="MinimumPercentageNeeded" placeholder="Enter percentage" class="flex-grow appearance-none w-2/3 bg-gray-200 text-gray-700 border
           border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white
-          focus:border-gray-500" min="0" max="100" />
+          focus:border-gray-500" min="0" max="100" (input)="validateNumberInput($event)" />
       </div>
       @if(isLoading){
         <div class="flex justify-center mt-5 mb-6" >

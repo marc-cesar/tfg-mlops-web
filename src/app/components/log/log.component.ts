@@ -19,7 +19,12 @@ export class LogComponent {
     const user = JSON.parse(localStorage.getItem('currentUser') as string)
     this.logService.getAllLogs(user.token).subscribe({
       next: (data : Log[]) => {
-        this.logs = data;
+        this.logs = data.map(log => ({
+          ...log,
+          // Convert the date to a human-readable format and local date time
+          date: new Date(log.date).toLocaleString()
+        }));
+
       },
       error: (err : any) => console.error(err),
     });
