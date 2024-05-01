@@ -5,16 +5,26 @@
     </div>
   
     <div class="my-8">
+      @if(!isAdmin){
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-semibold mb-6">Getting Started</h2>
-            <p class="mb-5">To begin the process of credit recommendation, simply choose one of the following options:</p>
-        </div>
+          <h2 class="text-3xl font-semibold mb-6">Getting Started</h2>
+          <p class="mb-5">To begin the process of credit recommendation, simply choose one of the following options:</p>
+      </div>
+      }
       
       <div class="flex flex-wrap justify-center gap-8">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg p-6 bg-white text-center transition-transform duration-150 hover:scale-105">
-          <a routerLink="NewRequest" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded leading-tight">Start new Credit Assessment</a>
-          <p class="mt-4">Initiate a new credit assessment for a client, and provide feedback if necessary.</p>
-        </div>
+        @if(isAdmin){
+          <div class="max-w-sm rounded overflow-hidden shadow-lg p-6 bg-white text-center transition-transform duration-150 hover:scale-105">
+            <a routerLink="ModelConfig" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded leading-tight">Manage Model Configuration</a>
+            <p class="mt-4">Access the model configuration panel to manage the model parameters.</p>
+          </div>
+        } 
+        @else {
+          <div class="max-w-sm rounded overflow-hidden shadow-lg p-6 bg-white text-center transition-transform duration-150 hover:scale-105">
+            <a routerLink="NewRequest" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded leading-tight">Start new Credit Assessment</a>
+            <p class="mt-4">Initiate a new credit assessment for a client, and provide feedback if necessary.</p>
+          </div>
+        }
         
         <div class="max-w-sm rounded overflow-hidden shadow-lg p-6 bg-white text-center transition-transform duration-150 hover:scale-105">
           <a routerLink="Requests" routerLinkActive="true" class="max-w-44 sm:max-w-none inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded leading-tight">Consult Previous Assessments</a>
@@ -22,10 +32,11 @@
         </div>
       </div>
     </div>
-  
+  @if(!isAdmin){
     <div class="text-center my-10">
       <h2 class="text-3xl font-semibold mb-6">Your Feedback Matters</h2>
       <p>We highly value your feedback on the credit assessment process. Your insights contribute to the continuous improvement of our system.</p>
     </div>
+  }
   </div>
   

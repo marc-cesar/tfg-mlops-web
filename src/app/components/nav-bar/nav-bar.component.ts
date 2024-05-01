@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
 import { Subscription } from 'rxjs';	
@@ -16,7 +16,7 @@ import { User } from '../../models/user.model';
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-2 sm:px-10 py-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="../../assets/bank-logo.svg" class="h-8" alt="MLOps banking system logo" />
-        <span class="sm:inline self-center sm:text-2xl font-semibold whitespace-nowrap text-white">Bank Credit Recomender</span>
+        <span class="sm:inline self-center sm:text-2xl font-semibold whitespace-nowrap text-white">Bank Credit Recommender</span>
     </a>
     <button (click)="toggleMenu()" data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg xl:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span class="sr-only">Open menu</span>
@@ -52,12 +52,12 @@ export class NavBarComponent {
 
   notAuthenticatedItemName = ['Home', 'Login', 'Signup', 'About']
   authenticatedItemName = ['Home', 'New Credit Assessment', 'All Credit Assessments', 'About']
-  adminItemName = ['Home', 'New Credit Assessment', 'All Credit Assessments', 'Logs', 'Admin', 'About']
+  adminItemName = ['Home', 'All Credit Assessments', 'Logs', 'Admin', 'About', 'Model Configuration']
 
   @Input() menuItems: any[] = [];
   filteredMenuItems: any[] = this.menuItems;
 
-  constructor(public storageService : StorageService, private authService : AuthService){}
+  constructor(public storageService : StorageService, private authService : AuthService, private router : Router){}
 
   ngOnInit() {
     this.subscription.add(this.storageService.currentUser.subscribe((user : User | null) => {
@@ -81,6 +81,7 @@ export class NavBarComponent {
    this.currentUser = null;
    this.isLoggedIn = false;
    this.filterMenuItems();
+   window.location.reload();
   }
 
   filterMenuItems() {

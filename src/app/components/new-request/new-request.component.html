@@ -4,11 +4,11 @@
     <p class="mb-8 px-6">To initiate a new credit assessment for a client, please provide the following information:</p>
   </div>
     <div *ngIf="!showElements" class="mb-10 md:mr-2 text-center">
-        <h2 class="text-lg font-semibold text-gray-700">Prediction: </h2>
+        <h2 class="text-lg font-semibold text-gray-700">System recommendation: </h2>
         <p class="text-gray-600">{{predictionString}}</p>
     </div>
     <div *ngIf="!showElements" class="mb-10 text-center">
-        <h2 class="text-lg font-semibold text-gray-700">Feedback</h2>
+        <h2 class="text-lg font-semibold text-gray-700">Result of the assessment:</h2>
         <p class="text-gray-600">{{feedbackString}}</p>
     </div>
     <div class="flex justify-center">

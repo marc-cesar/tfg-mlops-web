@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Request } from '../../models/request.model';
-import { CommonModule, ViewportScroller } from '@angular/common';
+import { CommonModule, DatePipe, ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-new-request',
@@ -19,18 +19,21 @@ import { CommonModule, ViewportScroller } from '@angular/common';
     HttpClientModule,
     CommonModule
   ],
+  providers: [DatePipe],
   templateUrl: './new-request.component.html',
   styleUrl: './new-request.component.css'
 })
 
 export class NewRequestComponent implements OnInit {
-  constructor(private viewportScroller: ViewportScroller, public dialog: MatDialog, private route: ActivatedRoute){}
+  constructor(private viewportScroller: ViewportScroller, public dialog: MatDialog, private route: ActivatedRoute, private datePipe : DatePipe){}
 
   requestsService = inject(RequestsService);
 
   pageTitle: string = 'New credit assessment';  // Default title => CHANGE
   predictionString: string = "We recommend this credit."
   feedbackString: string = "No feedback provided."
+
+  public formattedDate: string | null = '';
 
   requestForm = new FormGroup({
     field0: new FormControl('', Validators.required),
@@ -66,6 +69,7 @@ export class NewRequestComponent implements OnInit {
   showElements: boolean = true;
 
   ngOnInit(): void {
+    
     this.viewportScroller.scrollToPosition([0, 0]);
     this.route.queryParams.subscribe(params => {
       // Check if the requestId parameter exists
@@ -76,10 +80,19 @@ export class NewRequestComponent implements OnInit {
             this.request = data;
             this.updateForm(data)
             this.dniForm.controls['dni'].setValue(data.client.dni);
-            this.pageTitle = 'Recommendation ' + this.requestIdParam;
+            const date = new Date(data.approvalTime);
+            this.formattedDate = this.datePipe.transform(date, 'MMM d, yyyy HH:mm:ss');
+            this.pageTitle = "Assessment for " + data.client.dni + ' - ' + this.formattedDate;
             this.showElements = false;
-            this.predictionString = this.request?.prediction === "0" ? "We recommended this credit." : "We didn't recommend this credit.";
-            this.feedbackString = this.request?.feedback === this.request?.prediction ? "The client agreed with our prediction" : "The client didn't agree with our prediction";
+            this.predictionString = this.request?.prediction === "0" 
+            ? "The system recommended the credit." : "The system didn't recommend the credit.";
+            this.feedbackString = (this.request?.feedback == null ? "The user didn't inform the system whether the credit was conceded or not." 
+            : this.request?.feedback === this.request?.prediction 
+              ? "The user agreed with our decision. " 
+              : "The user didn't agree with our decision. ") 
+              + (this.request?.feedback == '0' 
+                ? "The credit was conceded to the client." 
+                : (this.request.feedback == '1' ? "The credit was not conceded" : ""));
           },
           error => { 
             console.error('Error fetching request:', error);
@@ -108,20 +121,18 @@ export class NewRequestComponent implements OnInit {
     const json = this.convertFormGroupToJson(this.requestForm);
     console.log(json);
     this.isLoading = true;
-    // Do the post call
+
     const dni = this.dniForm.get('dni')?.value;
     const user = JSON.parse(localStorage.getItem('currentUser') as string)
     this.requestsService.askForPrediction(json, user.token as string, dni as string)
       .then((response) => {
         this.isLoading = false;
         this.requestId = response["id"];
-            // Check the prediction value and show the modal with the appropriate message
           if(response["prediction"] === "0") {
             this.showModal('We recommend this credit.', this.requestId);
           } else if(response["prediction"] === "1") {
             this.showModal('We don’t recommend this credit.', this.requestId);
           } else {
-            // Handle unexpected prediction values
             console.error('Unexpected prediction value:', response["prediction"]);
           }
       })
@@ -138,6 +149,8 @@ export class NewRequestComponent implements OnInit {
         control.disable();
       }
     });
+    // Disable dni form
+    this.dniForm.disable();
   }
 
   private resetForm(): void {

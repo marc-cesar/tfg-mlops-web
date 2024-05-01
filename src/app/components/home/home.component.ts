@@ -11,4 +11,9 @@ import routeConfig from '../../app.routes';
 })
 export class HomeComponent {
 
+  // get the logged user from the local storage
+  user = JSON.parse(localStorage.getItem('currentUser') as string);
+  // if user is not null, set this.isAdmin to the user.isAdmin value
+  isAdmin = this.user ? this.user.isAdmin : false;
+
 }

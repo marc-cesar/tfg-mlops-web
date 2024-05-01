@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GrantAdminAccessComponent } from '../grant-admin-access/grant-admin-access.component';
-import { ForceRetrainComponent } from '../force-retrain/force-retrain.component';
+import { ForceRetrainComponent } from '../../../model-config/force-retrain/force-retrain.component';
 import { RetrainSettingsComponent } from '../retrain-settings/retrain-settings.component';
 
 @Component({

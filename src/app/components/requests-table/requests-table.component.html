@@ -6,27 +6,32 @@
                     
                 </th>
                 <th scope="col" class="text-sm px-4 font-bold text-gray-900 py-4 text-center">
-                    Prediction
+                    System's recommendation
                 </th>
                 <th scope="col" class="text-sm px-4 font-bold text-gray-900 py-4 text-center">
-                    FeedBack
+                    Final decision
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="border-b" *ngFor="let request of requests; let i = index">
-                <td class="px-1 py-4 whitespace-nowrap text-center font-medium text-gray-900">
-                    <a class="text-blue-500 underline hover:text-blue-700" [routerLink]="['/NewRequest']" [queryParams]="{requestId: request.id}">
-                        Assessment {{ request?.client?.dni }} - {{ request.approvalTime}}
-                    </a>
-                </td>
-                <td class="px-1 py-4 whitespace-nowrap text-center font-normal text-gray-900">
-                    {{ request.prediction }}
-                </td>
-                <td class="px-1 py-4 whitespace-nowrap text-center font-normal text-gray-900">
-                    {{ request.feedback != null ? request.feedback : 'NULL' }}
-                </td>
-            </tr>             
-        </tbody>
+            <tbody>
+                <tr class="border-b" *ngFor="let request of requests; let i = index">
+                    <td class="px-1 py-4 whitespace-nowrap text-center font-medium text-gray-900">
+                        <a class="text-blue-500 underline hover:text-blue-700" [routerLink]="['/NewRequest']" [queryParams]="{requestId: request.id}">
+                            Assessment for {{ request?.client?.dni }} - {{ request.approvalTime | date: 'MMM d, yyyy HH:mm:ss' }}
+                        </a>
+                    </td>
+                    <td class="px-1 py-4 whitespace-nowrap text-center font-normal text-gray-900">
+                        <span class="font-extrabold" [ngClass]="{'text-green-500': request.prediction === '0', 'text-red-500': request.prediction === '1'}">
+                            {{ request.prediction === '0' ? '✓' : '✗' }}
+                        </span>
+                    </td>
+                    <td class="px-1 py-4 whitespace-nowrap text-center font-normal text-gray-900">
+                        <span class="font-extrabold" [ngClass]="{'text-green-500': request.feedback === '0', 'text-red-500': request.feedback === '1'}">
+                            {{ request.feedback != null ? (request.feedback === '0' ? '✓' : '✗') : '' }}
+                        </span>
+                    </td>
+                </tr>             
+            </tbody>
     </table>
 </div>
