@@ -38,13 +38,13 @@ const routeConfig: Routes = [
     {
         path: 'NewRequest',
         component: NewRequestComponent,
-        title: 'New Credit',
+        title: 'New Credit Assessment',
         canActivate: [createCheckTokenAccess(false)]
     },
     {
         path: 'Requests',
         component: RequestsListComponent,
-        title: 'All Predictions',
+        title: 'All Credit Assessments',
         canActivate: [createCheckTokenAccess(false)]
     },
     {

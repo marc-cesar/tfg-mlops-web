@@ -17,7 +17,7 @@
             <tr class="border-b" *ngFor="let request of requests; let i = index">
                 <td class="px-1 py-4 whitespace-nowrap text-center font-medium text-gray-900">
                     <a class="text-blue-500 underline hover:text-blue-700" [routerLink]="['/NewRequest']" [queryParams]="{requestId: request.id}">
-                        Recommendation {{ request.id }}
+                        Assessment {{ request?.client?.dni }} - {{ request.approvalTime}}
                     </a>
                 </td>
                 <td class="px-1 py-4 whitespace-nowrap text-center font-normal text-gray-900">

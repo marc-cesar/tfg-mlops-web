@@ -28,7 +28,7 @@ export class NewRequestComponent implements OnInit {
 
   requestsService = inject(RequestsService);
 
-  pageTitle: string = 'Create New Request';  // Default title => CHANGE
+  pageTitle: string = 'New credit assessment';  // Default title => CHANGE
   predictionString: string = "We recommend this credit."
   feedbackString: string = "No feedback provided."
 
@@ -55,6 +55,10 @@ export class NewRequestComponent implements OnInit {
     field19: new FormControl('', Validators.required),
   });
 
+  dniForm = new FormGroup({
+    'dni': new FormControl('', [Validators.required, Validators.maxLength(9)])
+  });
+
   requestId = 0;
   isLoading = false;
   requestIdParam = "0";
@@ -71,6 +75,7 @@ export class NewRequestComponent implements OnInit {
           (data : Request) => {
             this.request = data;
             this.updateForm(data)
+            this.dniForm.controls['dni'].setValue(data.client.dni);
             this.pageTitle = 'Recommendation ' + this.requestIdParam;
             this.showElements = false;
             this.predictionString = this.request?.prediction === "0" ? "We recommended this credit." : "We didn't recommend this credit.";
@@ -83,15 +88,18 @@ export class NewRequestComponent implements OnInit {
       } else {
         this.resetForm();
         this.requestForm.enable();
-        this.pageTitle = 'New prediction request';
+        this.pageTitle = 'New credit assessment';
         this.showElements = true
+        this.dniForm = new FormGroup({
+          'dni': new FormControl('', [Validators.required, Validators.maxLength(9)])
+        });
       }
     });
   }
 
 
   sendForm() {
-    if (this.requestForm.invalid) {
+    if (this.requestForm.invalid || this.dniForm.invalid) {
       alert('Please fill out all fields before submitting the form.');
       return;
     }
@@ -101,8 +109,9 @@ export class NewRequestComponent implements OnInit {
     console.log(json);
     this.isLoading = true;
     // Do the post call
+    const dni = this.dniForm.get('dni')?.value;
     const user = JSON.parse(localStorage.getItem('currentUser') as string)
-    this.requestsService.askForPrediction(json, user.token as string)
+    this.requestsService.askForPrediction(json, user.token as string, dni as string)
       .then((response) => {
         this.isLoading = false;
         this.requestId = response["id"];
@@ -125,7 +134,7 @@ export class NewRequestComponent implements OnInit {
     Object.keys(data).forEach(key => {
       const control = this.requestForm.controls[key as keyof typeof this.requestForm.controls];
       if (control) {
-        control.setValue(data[key as keyof Request]);
+        control.setValue(data[key as keyof typeof this.requestForm.controls]);
         control.disable();
       }
     });
@@ -160,7 +169,7 @@ export class NewRequestComponent implements OnInit {
   }
 
   convertFormGroupToJson(formGroup: FormGroup): { [key: string]: number[] } {
-    const result: { [key: string]: number[] } = {};
+    const result: { [key: string]: number[] } = {};      
     
     Object.keys(formGroup.controls).forEach((key, index) => {
       const value = formGroup.get(key)?.value;

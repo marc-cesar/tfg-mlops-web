@@ -1,3 +1,5 @@
+import { Client } from "./client.module";
+
 export interface Request {
     id: string;
     field0: string;
@@ -22,4 +24,7 @@ export interface Request {
     field19: string;
     prediction: string;
     feedback: string;
+    userID: string;
+    approvalTime : string;
+    client : Client;
 }

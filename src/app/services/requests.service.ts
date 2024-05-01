@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Request } from '../request';
+import { Request } from '../models/request.model';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { map, catchError } from 'rxjs/operators';
@@ -24,8 +24,8 @@ export class RequestsService {
     return await data.json() ?? [];
   }
 
-  async askForPrediction(object: any, token : string): Promise<any> {
-    const data = await fetch(this.apiUrl + "/api/predict?token=" + token, {
+  async askForPrediction(object: any, token : string, dni : string): Promise<any> {
+    const data = await fetch(this.apiUrl + "/api/predict?token=" + token + "&dni=" + dni , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

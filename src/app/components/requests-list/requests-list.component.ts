@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RequestsTableComponent } from '../requests-table/requests-table.component';
 import { RequestsService } from '../../services/requests.service';
-import { Request } from '../../request';
+import { Request } from '../../models/request.model';
 
 @Component({
   selector: 'app-requests-list',
