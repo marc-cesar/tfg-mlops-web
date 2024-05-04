@@ -20,7 +20,7 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl + '/logIn', { Username: username, Password: password })
       .pipe(
         map(response => {
-          if (response && response != '' && response.Token != '' && response.username != '') {
+          if (response && response != '' && response.Token != '' && response.Token != null && response.username != '') {
             this.storageService.currentUser = {
               id: "",
               username: username, 

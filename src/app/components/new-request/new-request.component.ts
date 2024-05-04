@@ -76,7 +76,7 @@ export class NewRequestComponent implements OnInit {
       this.requestIdParam = params['requestId'];
       if (this.requestIdParam) {
         this.requestsService.getRequestById(this.requestIdParam).subscribe(
-          (data : Request) => {
+          (data : any) => {
             this.request = data;
             this.updateForm(data)
             this.dniForm.controls['dni'].setValue(data.client.dni);
@@ -92,7 +92,7 @@ export class NewRequestComponent implements OnInit {
               : "The user didn't agree with our decision. ") 
               + (this.request?.feedback == '0' 
                 ? "The credit was conceded to the client." 
-                : (this.request.feedback == '1' ? "The credit was not conceded" : ""));
+                : (this?.request?.feedback == '1' ? "The credit was not conceded" : ""));
           },
           error => { 
             console.error('Error fetching request:', error);
@@ -141,13 +141,16 @@ export class NewRequestComponent implements OnInit {
       })
   }
 
-  private updateForm(data: Request): void {
+  private updateForm(data: any): void {
     Object.keys(data).forEach(key => {
-      const control = this.requestForm.controls[key as keyof typeof this.requestForm.controls];
-      if (control) {
-        control.setValue(data[key as keyof typeof this.requestForm.controls]);
-        control.disable();
-      }
+      const fieldName = this.fieldMapping[key];
+      if (fieldName) {
+        const control = this.requestForm.get(fieldName);
+        if (control) {
+          control.setValue(data[key as keyof typeof this.requestForm.controls]);
+          control.disable();
+        }
+      }      
     });
     // Disable dni form
     this.dniForm.disable();
@@ -215,5 +218,28 @@ export class NewRequestComponent implements OnInit {
     
     input.value = value;
   }
+
+  fieldMapping: { [key: string]: string } = {
+    statusExistingAccount: 'field0',
+    monthsDuration: 'field1',
+    creditHistory: 'field2',
+    purpose: 'field3',
+    creditAmount: 'field4',
+    savingAccount: 'field5',
+    presentEmploymentSince: 'field6',
+    installmentPercentage: 'field7',
+    statusAndSex: 'field8',
+    otherDebtors: 'field9',
+    presentResidenceSince: 'field10',
+    property: 'field11',
+    ageInYears: 'field12',
+    otherInstallmentPlans: 'field13',
+    housing: 'field14',
+    numberOfExistingCredits: 'field15',
+    job: 'field16',
+    peopleToProvideMaintenance: 'field17',
+    telephoneNumber: 'field18',
+    foreignWorker: 'field19'
+  };
   
 }
